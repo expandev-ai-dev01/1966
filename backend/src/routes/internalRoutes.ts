@@ -7,7 +7,9 @@
  */
 
 import { Router } from 'express';
+import { authMiddleware } from '@/middleware';
 import * as initExampleController from '@/api/internal/init-example/controller';
+import * as taskController from '@/api/internal/task/controller';
 
 const router = Router();
 
@@ -20,5 +22,11 @@ router.post('/init-example', initExampleController.createHandler);
 router.get('/init-example/:id', initExampleController.getHandler);
 router.put('/init-example/:id', initExampleController.updateHandler);
 router.delete('/init-example/:id', initExampleController.deleteHandler);
+
+/**
+ * @rule {be-route-configuration}
+ * Task routes - /api/internal/task
+ */
+router.post('/task', authMiddleware, taskController.createHandler);
 
 export default router;
